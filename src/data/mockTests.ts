@@ -117,6 +117,3 @@ export const mockPapers: MockPaper[] = [
     ],
   },
 ];
-
-// Legacy export for backward compatibility
-export const mockDays = [];

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Zap, ArrowRight, ExternalLink } from "lucide-react";
+import { Zap, ExternalLink } from "lucide-react";
 import { UPDATES } from "../data/updates";
 
 export default function Updates() {
@@ -29,28 +29,13 @@ export default function Updates() {
       {/* Update list */}
       <div className="mt-8 space-y-2">
         {UPDATES.map((update) => {
-          const hasLink = update.href || update.driveUrl;
-          const Component = hasLink ? "a" : "div";
-          const linkProps = hasLink
-            ? {
-                href: update.driveUrl || update.href,
-                ...(update.driveUrl && {
-                  target: "_blank",
-                  rel: "noopener noreferrer",
-                }),
-              }
-            : {};
+          const hasLink = Boolean(update.href || update.driveUrl);
+          const cardClass = `flex items-start gap-4 p-4 transition-all ${
+            hasLink ? "card-interactive group cursor-pointer" : "card"
+          }`;
 
-          return (
-            <Component
-              key={update.id}
-              {...linkProps}
-              className={`flex items-start gap-4 p-4 transition-all ${
-                hasLink
-                  ? "card-interactive group cursor-pointer"
-                  : "card"
-              }`}
-            >
+          const inner = (
+            <>
               <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-2" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
@@ -72,7 +57,38 @@ export default function Updates() {
                   aria-hidden="true"
                 />
               )}
-            </Component>
+            </>
+          );
+
+          // External Drive PDF → open in a new tab.
+          if (update.driveUrl) {
+            return (
+              <a
+                key={update.id}
+                href={update.driveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cardClass}
+              >
+                {inner}
+              </a>
+            );
+          }
+
+          // Internal page → client-side navigation (no full reload).
+          if (update.href) {
+            return (
+              <Link key={update.id} to={update.href} className={cardClass}>
+                {inner}
+              </Link>
+            );
+          }
+
+          // No link → static card.
+          return (
+            <div key={update.id} className={cardClass}>
+              {inner}
+            </div>
           );
         })}
       </div>

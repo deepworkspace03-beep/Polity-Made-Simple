@@ -69,13 +69,8 @@ export default function MaterialsBrowser({
         a.name.localeCompare(b.name)
     );
 
-  const typeChip = (active: boolean) =>
-    "border px-1.5 py-px text-[10px] sm:px-2.5 sm:py-1 sm:text-xs font-medium transition-all active:scale-95 " +
-    (active
-      ? "pill-active"
-      : "border-edge bg-bg text-muted hover:border-brand/40 hover:text-fg");
-
-  const filterChip = (active: boolean) =>
+  // Shared style for every filter chip (category, paper, language).
+  const chipClass = (active: boolean) =>
     "border px-1.5 py-px text-[10px] sm:px-2.5 sm:py-1 sm:text-xs font-medium transition-all active:scale-95 " +
     (active
       ? "pill-active"
@@ -104,7 +99,7 @@ export default function MaterialsBrowser({
               <button
                 key={t}
                 onClick={() => toggle(types, t, setTypes)}
-                className={typeChip(types.includes(t))}
+                className={chipClass(types.includes(t))}
               >
                 {t}
               </button>
@@ -139,7 +134,7 @@ export default function MaterialsBrowser({
                   <button
                     key={p}
                     onClick={() => toggle(papers, p, setPapers)}
-                    className={filterChip(papers.includes(p))}
+                    className={chipClass(papers.includes(p))}
                   >
                     {p}
                   </button>
@@ -160,7 +155,7 @@ export default function MaterialsBrowser({
                   <button
                     key={l}
                     onClick={() => toggle(langs, l, setLangs)}
-                    className={filterChip(langs.includes(l))}
+                    className={chipClass(langs.includes(l))}
                   >
                     {l}
                   </button>

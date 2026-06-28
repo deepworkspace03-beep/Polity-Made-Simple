@@ -42,18 +42,22 @@ The home-page browser updates itself from these two files — no extra step.
 
 ## 2. Add or edit a mock test
 
-Open **`src/data/mockTests.ts`**:
+Open **`src/data/mockTests.ts`**. Tests are grouped by `paper`, then by
+`section` (e.g. a unit or "Full-Length Mock Tests"). To add a test, drop a new
+`{ ... }` into the right section's `tests` array:
 
 ```ts
 {
-  date: "23 June",
-  tests: [
-    { title: "Unit 1 – Political Theory", paper: "Paper 2", questions: "50 Q", url: "https://your-test-link/" }
-  ]
+  title: "Unit 1 – Political Theory",
+  paper: "Paper 2",
+  unit: "Unit 1",       // optional label
+  questions: "50 Q",    // optional
+  url: "https://your-test-link/",
 }
 ```
 
-`paper` must be `"Paper 1"`, `"Paper 2"`, or `"Full"`.
+`paper` must be `"Paper 1"`, `"Paper 2"`, or `"Full"`. To start a brand-new
+group, copy an existing `{ paper, sections: [...] }` block.
 
 ---
 
@@ -62,8 +66,8 @@ Open **`src/data/mockTests.ts`**:
 Open **`src/config.ts`** — all at the top:
 
 - `telegram`, `whatsapp`, `whatsappChannel`, `email`
-- `brandName`, `tagline`, `examLabel`
-- `COMMUNITY` → the three cards in the Contact section
+- `brandName`, `tagline`, `initiative`, `examLabel`
+- `COMMUNITY` → the channel links shown in the footer
 
 ---
 

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" role="img" aria-label="Polity Made Simple">
+  <defs>
+    <linearGradient id="pmsFavicon" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3B6BFF" />
+      <stop offset="1" stop-color="#34D39E" />
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="url(#pmsFavicon)" />
+  <g fill="#ffffff">
+    <path d="M24 11 L35.5 17.6 H12.5 Z" />
+    <rect x="12.5" y="18.8" width="23" height="2.4" rx="1.2" />
+    <rect x="15.4" y="22.4" width="2.6" height="10.6" rx="1" />
+    <rect x="22.7" y="22.4" width="2.6" height="10.6" rx="1" />
+    <rect x="30" y="22.4" width="2.6" height="10.6" rx="1" />
+    <rect x="11.8" y="34.2" width="24.4" height="2.6" rx="1.2" />
+  </g>
+</svg>

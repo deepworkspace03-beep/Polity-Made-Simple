@@ -33,7 +33,9 @@ export default function UnitAccordion({ section }: { section: ResSection }) {
     <div className="card overflow-hidden">
       {/* header (click to expand) */}
       <button
+        type="button"
         onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
         className="flex w-full items-center justify-between gap-3 p-4 text-left transition-colors hover:bg-fg/5"
       >
         <span className="flex items-center gap-2">

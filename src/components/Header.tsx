@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Send, Sun, Moon, X, Menu } from "lucide-react";
 import Logo from "./Logo";
@@ -43,6 +43,7 @@ function ThemeToggle({
 }) {
   return (
     <button
+      type="button"
       onClick={onToggle}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       className="flex items-center gap-1.5"
@@ -81,6 +82,14 @@ function ThemeToggle({
 export default function Header({ theme, toggleTheme }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const isDark = theme === "dark";
+
+  // The drawer stays mounted (so it can slide in/out), but when closed it
+  // sits off-screen. `inert` keeps its links out of the tab order and the
+  // accessibility tree until the menu is actually open.
+  const drawerRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (drawerRef.current) drawerRef.current.inert = !menuOpen;
+  }, [menuOpen]);
 
   return (
     <>
@@ -126,8 +135,11 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
 
             {/* Mobile menu */}
             <button
+              type="button"
               onClick={() => setMenuOpen((o) => !o)}
-              aria-label="Open menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
               className="flex h-9 w-9 items-center justify-center border border-edge text-fg transition-colors hover:bg-fg/5 active:scale-95 lg:hidden"
             >
               {menuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -146,6 +158,8 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
 
       {/* Sidebar drawer — rectangle */}
       <aside
+        ref={drawerRef}
+        id="mobile-menu"
         className={`fixed right-0 top-0 z-50 flex h-full w-72 flex-col bg-band shadow-2xl transition-transform duration-300 lg:hidden ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -159,6 +173,7 @@ export default function Header({ theme, toggleTheme }: HeaderProps) {
             </span>
           </div>
           <button
+            type="button"
             onClick={() => setMenuOpen(false)}
             aria-label="Close menu"
             className="flex h-8 w-8 items-center justify-center border border-edge text-muted hover:bg-fg/5 active:scale-95"

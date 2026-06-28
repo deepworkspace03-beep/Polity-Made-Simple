@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Paper1 from "./pages/Paper1";
-import Paper2 from "./pages/Paper2";
-import MockTests from "./pages/MockTests";
-import Updates from "./pages/Updates";
+
+// Secondary pages are code-split: each loads its own chunk on demand,
+// keeping the initial homepage bundle small for faster first paint.
+const Paper1 = lazy(() => import("./pages/Paper1"));
+const Paper2 = lazy(() => import("./pages/Paper2"));
+const MockTests = lazy(() => import("./pages/MockTests"));
+const Updates = lazy(() => import("./pages/Updates"));
 
 type Theme = "dark" | "light";
 
@@ -36,11 +39,10 @@ export default function App() {
   // ENTIRE site switches themes at once.
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
+    // Keep `light`/`dark` mutually exclusive — mirrors the pre-paint
+    // script in index.html so <html> never ends up with both classes.
+    root.classList.toggle("dark", theme === "dark");
+    root.classList.toggle("light", theme === "light");
     localStorage.setItem("theme", theme);
   }, [theme]);
 
@@ -57,13 +59,15 @@ export default function App() {
 
         <main className="flex-1">
           {/* ── ROUTES: add a new <Route> here to add a new page ── */}
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/paper-1" element={<Paper1 />} />
-            <Route path="/paper-2" element={<Paper2 />} />
-            <Route path="/mock-tests" element={<MockTests />} />
-            <Route path="/updates" element={<Updates />} />
-          </Routes>
+          <Suspense fallback={<div className="min-h-[60vh]" aria-busy="true" />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/paper-1" element={<Paper1 />} />
+              <Route path="/paper-2" element={<Paper2 />} />
+              <Route path="/mock-tests" element={<MockTests />} />
+              <Route path="/updates" element={<Updates />} />
+            </Routes>
+          </Suspense>
         </main>
 
         <Footer />
