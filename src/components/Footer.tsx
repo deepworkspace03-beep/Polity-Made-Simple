@@ -17,30 +17,27 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-edge bg-band">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-        {/* Always side-by-side on every screen size */}
-        <div className="flex items-stretch justify-between gap-4">
+      <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 sm:py-6">
+        {/* Main row — brand left, community right, vertically centered & symmetric */}
+        <div className="flex items-center justify-between gap-4">
 
           {/* Brand — left */}
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <Logo size={26} />
+              <Logo size={24} />
               <span className="whitespace-nowrap text-sm font-extrabold">
                 <span className="text-gradient">Polity</span> Made Simple
               </span>
             </div>
-            <p className="mt-1 text-xs text-muted">{SITE.tagline}</p>
+            <p className="mt-1 text-[11px] text-muted">{SITE.tagline}</p>
           </div>
 
-          {/* Thin vertical divider */}
-          <span className="w-px shrink-0 bg-edge" />
-
           {/* Community — right */}
-          <div className="flex shrink-0 flex-col items-end gap-2.5">
-            <p className="text-right text-[11px] font-medium text-muted">
+          <div className="flex shrink-0 items-center gap-3 sm:gap-4">
+            <p className="hidden max-w-[7rem] text-right text-[11px] font-medium leading-tight text-muted sm:block">
               Join us for regular updates
             </p>
-            <div className="flex items-start gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
               {COMMUNITY.map((c, i) => {
                 const Icon = i === COMMUNITY.length - 1 ? Users : BRAND_ICON[c.brand];
                 const shortLabel = ["Telegram", "WhatsApp", "Group"][i];
@@ -51,7 +48,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     title={c.label}
-                    className="flex flex-col items-center gap-1.5"
+                    className="flex flex-col items-center gap-1"
                   >
                     <span
                       className="flex h-9 w-9 items-center justify-center border border-edge bg-card transition-all hover:border-brand/40 hover:shadow-sm active:scale-95"
@@ -68,8 +65,8 @@ export default function Footer() {
 
         </div>
 
-        {/* Copyright */}
-        <p className="mt-6 border-t border-edge pt-5 text-center font-mono text-[11px] text-muted/60">
+        {/* Copyright — slim divider bar */}
+        <p className="mt-4 border-t border-edge pt-3 text-center font-mono text-[10px] text-muted/60">
           © {year} {SITE.brandName}. All rights reserved.
         </p>
       </div>
