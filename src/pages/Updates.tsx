@@ -45,7 +45,7 @@ export default function Updates() {
             <Component
               key={update.id}
               {...linkProps}
-              className={`flex items-start gap-4 p-4 ${
+              className={`flex items-start gap-4 p-4 transition-all ${
                 hasLink
                   ? "card-interactive group cursor-pointer"
                   : "card"
@@ -69,6 +69,7 @@ export default function Updates() {
                 <ExternalLink
                   size={15}
                   className="mt-1 shrink-0 text-muted transition-colors group-hover:text-brand"
+                  aria-hidden="true"
                 />
               )}
             </Component>
@@ -76,15 +77,6 @@ export default function Updates() {
         })}
       </div>
 
-      {/* Admin note */}
-      {/* <div className="mt-8 border border-dashed border-edge p-4 text-xs text-muted">
-        <span className="font-semibold text-fg">Admin:</span> To add or edit announcements,
-        open the file{" "}
-        <code className="font-mono text-brand">src/data/updates.ts</code> — instructions
-        are written inside that file in plain language.
-      </div> */}
-
-      
     </section>
   );
 }
