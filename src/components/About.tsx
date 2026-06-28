@@ -23,7 +23,7 @@ export default function About() {
             </div>
 
             {/* Label below avatar */}
-            <p className="eyebrow">About Us</p>
+            <p className="eyebrow">About</p>
 
             {/* Bio + contact — more compact */}
             <div className="max-w-2xl">
