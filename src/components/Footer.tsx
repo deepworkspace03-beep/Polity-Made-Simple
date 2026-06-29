@@ -1,6 +1,6 @@
 import { Send, MessageCircle, Users } from "lucide-react";
-import JrfLogo from "./JrfLogo";
 import { SITE, COMMUNITY } from "../config";
+import footerLogo from "../assets/footer-logo.webp";
 
 const BRAND_VAR: Record<"telegram" | "whatsapp", string> = {
   telegram: "--tg",
@@ -23,11 +23,18 @@ export default function Footer() {
 
           {/* Brand — left */}
           <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-            <JrfLogo size={40} className="shrink-0 sm:hidden" />
-            <JrfLogo size={46} className="hidden shrink-0 sm:block" />
+            <img
+              src={footerLogo}
+              alt="The JRF Club"
+              width={46}
+              height={46}
+              loading="lazy"
+              decoding="async"
+              className="h-10 w-10 shrink-0 sm:h-[46px] sm:w-[46px]"
+            />
             <div className="min-w-0">
               <p className="text-sm font-extrabold leading-tight tracking-tight sm:text-[15px]">
-                {SITE.footerName}
+                <span className="text-gradient">{SITE.footerInitiative}</span>
               </p>
               <p className="mt-0.5 text-[11px] font-medium text-muted">
                 {SITE.footerTagline}
@@ -70,7 +77,7 @@ export default function Footer() {
 
         {/* Copyright — slim divider bar */}
         <p className="mt-4 border-t border-edge pt-3 text-center font-mono text-[10px] text-muted/60">
-          © {year} {SITE.footerName}. All rights reserved.
+          © {year} {SITE.copyrightName}. All Rights Reserved.
         </p>
       </div>
     </footer>
