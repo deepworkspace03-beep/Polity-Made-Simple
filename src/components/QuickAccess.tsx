@@ -22,19 +22,11 @@ export default function QuickAccess({
     <section className="border-b border-edge bg-bg">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-12">
 
-        {/* Highlighted header */}
-        <div className="flex flex-col items-center gap-2 text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-brand/30 bg-brand/10 px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-widest text-brand">
-            <Sparkles size={12} />
-            Quick Access
-          </span>
-          <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
-            Jump straight to what you need
-          </h2>
-          <p className="text-sm text-muted">
-            Tap a category to instantly filter the study material below.
-          </p>
-        </div>
+        {/* Heading */}
+        <h2 className="flex items-center justify-center gap-2 text-center text-2xl font-extrabold tracking-tight sm:text-3xl">
+          <Sparkles size={22} className="text-brand" />
+          Quick Access
+        </h2>
 
         {/* Tiles */}
         <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:grid-cols-3">

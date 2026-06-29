@@ -1,20 +1,11 @@
 # assets/
 
-Put your images here (logo, profile photo, banners, etc.).
+Images that are bundled by Vite (imported from components).
 
-## Using a real profile photo
+## Profile photo (About Us)
 
-1. Add your image to this folder, e.g. `profile.jpg`.
-2. Open `src/components/About.tsx`.
-3. At the top, add:  `import profile from "../assets/profile.jpg";`
-4. Replace the placeholder circle `<div>` with:
+The About section uses `profile.jpg` from this folder.
 
-   ```tsx
-   <img
-     src={profile}
-     alt="Profile"
-     className="mx-auto h-24 w-24 rounded-full object-cover"
-   />
-   ```
-
-That's it — Vite handles the image import automatically.
+To change it, just replace `src/assets/profile.jpg` with your new photo
+(a square JPG/PNG works best — it is shown in a rounded square). No code
+change is needed — `src/components/About.tsx` already imports it.

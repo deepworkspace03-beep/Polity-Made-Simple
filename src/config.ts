@@ -5,10 +5,14 @@
 // ───────────────────────────────────────────────────────────────
 
 export const SITE = {
-  brandName: "Polity Made Simple", // header + footer
-  tagline: "Study smarter, learn faster.", // line under the brand name
+  brandName: "Polity Made Simple", // header brand
+  tagline: "Study smarter, learn faster.", // line under the header brand name
   initiative: "An initiative by JRF Toppers", // hero eyebrow line
-  examLabel: "UGC-NET JRF · December 2026", // highlighted hero tag
+  examLabel: "UGC NET JRF · December 2026", // highlighted hero tag
+
+  // Footer identity (kept separate from the header brand on purpose).
+  footerName: "The JRF Club Initiative", // bold footer title
+  footerTagline: "Study Smarter. Learn Faster.", // line under the footer title
 
   // Your real links:
   telegram: "https://t.me/politicalsciencenetjrfclub",

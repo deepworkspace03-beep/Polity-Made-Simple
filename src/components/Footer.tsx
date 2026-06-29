@@ -22,16 +22,17 @@ export default function Footer() {
         <div className="flex items-center justify-between gap-4">
 
           {/* Brand — left */}
-          <div className="min-w-0">
-            <div className="flex items-center gap-2.5">
-              <JrfLogo size={30} className="shrink-0" />
-              <span className="whitespace-nowrap text-sm font-extrabold">
-                <span className="text-gradient">Polity</span> Made Simple
-              </span>
+          <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
+            <JrfLogo size={40} className="shrink-0 sm:hidden" />
+            <JrfLogo size={46} className="hidden shrink-0 sm:block" />
+            <div className="min-w-0">
+              <p className="text-sm font-extrabold leading-tight tracking-tight sm:text-[15px]">
+                {SITE.footerName}
+              </p>
+              <p className="mt-0.5 text-[11px] font-medium text-muted">
+                {SITE.footerTagline}
+              </p>
             </div>
-            <p className="mt-1 text-[11px] text-muted">
-              A <span className="font-semibold text-gradient">JRF Club</span> Initiative
-            </p>
           </div>
 
           {/* Community — right */}
@@ -69,7 +70,7 @@ export default function Footer() {
 
         {/* Copyright — slim divider bar */}
         <p className="mt-4 border-t border-edge pt-3 text-center font-mono text-[10px] text-muted/60">
-          © {year} {SITE.brandName}. All rights reserved.
+          © {year} {SITE.footerName}. All rights reserved.
         </p>
       </div>
     </footer>

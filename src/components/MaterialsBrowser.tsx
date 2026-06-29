@@ -156,13 +156,10 @@ export default function MaterialsBrowser({
           </>
         ) : (
           /* ── Default: Latest & Essentials ── */
-          <div className="mb-4">
-            <p className="eyebrow">Latest &amp; Essentials</p>
-            <p className="mt-1 text-sm text-muted sm:text-base">
-              Fresh uploads &amp; must-have resources — use{" "}
-              <span className="font-semibold text-brand">Quick Access</span> above
-              to filter everything.
-            </p>
+          <div className="mb-5">
+            <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
+              Latest &amp; Essentials
+            </h2>
           </div>
         )}
 

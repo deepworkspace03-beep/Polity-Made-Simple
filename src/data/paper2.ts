@@ -6,20 +6,18 @@ import type { ResSection } from "./resources";
 export const paper2Sections: ResSection[] = [
   {
     // Shows up automatically in the home "Latest & Essentials" list.
-    // TODO: replace the two placeholder URLs below with the real
-    //       Paper-2 Political Science syllabus Google Drive links.
     "title": "Syllabus",
     "categories": [
       {
         "label": "Official Syllabus",
         "files": [
           {
-            "name": "Paper-2 Political Science Syllabus (Hindi)",
-            "url": "https://drive.google.com/"
+            "name": "Paper-2 Political Science Syllabus (English)",
+            "url": "https://drive.google.com/file/d/1jz3YLrr4hudvPTDGzI8r16H0Sn38802_/view?usp=drivesdk"
           },
           {
-            "name": "Paper-2 Political Science Syllabus (English)",
-            "url": "https://drive.google.com/"
+            "name": "Paper-2 Political Science Syllabus (Hindi)",
+            "url": "https://drive.google.com/file/d/1S4rAkjEuAbY0V5uThhJ_k6qpMpf_8AXM/view?usp=drivesdk"
           }
         ]
       }

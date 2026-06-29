@@ -36,39 +36,53 @@ export default function Home() {
 
   return (
     <>
-      {/* Mobile latest updates — compact, only latest 2, each directly clickable. Hidden on lg+ */}
-      <div className="sticky top-16 z-30 border-b border-edge bg-band/95 backdrop-blur-sm lg:hidden">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 pt-1.5">
-          <span className="inline-flex items-center gap-1 font-mono text-[9px] font-bold uppercase tracking-widest text-brand">
-            <Zap size={9} fill="currentColor" />
-            Latest Updates
-          </span>
-          <Link
-            to="/updates"
-            className="font-mono text-[9px] uppercase tracking-wider text-brand hover:underline"
-          >
-            View all →
-          </Link>
+      {/* Mobile Latest Updates — single-line auto-scrolling ticker on a
+          distinct accent band below the header. Each item is directly
+          clickable; pauses on touch/hover and respects reduced-motion. */}
+      <div className="sticky top-16 z-30 flex items-center gap-2 border-b border-edge bg-brand/[0.07] py-1.5 pl-3 pr-2 backdrop-blur-sm lg:hidden">
+        {/* Fixed accent label — distinguishes the bar from the top header */}
+        <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brand px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-wider text-white">
+          <Zap size={9} fill="currentColor" />
+          Updates
+        </span>
+
+        {/* Scrolling ticker (content duplicated for a seamless loop) */}
+        <div
+          role="region"
+          aria-label="Latest updates"
+          className="relative min-w-0 flex-1 overflow-hidden"
+        >
+          <div className="animate-marquee" style={{ display: "inline-flex" }}>
+            {[0, 1].flatMap((copy) =>
+              UPDATES.map((u) => (
+                <UpdateLink
+                  key={`${copy}-${u.id}`}
+                  update={u}
+                  decorative={copy === 1}
+                  className="mr-6 inline-flex shrink-0 items-center gap-1.5 text-[11px]"
+                >
+                  <span className="h-1 w-1 shrink-0 rounded-full bg-brand-2" />
+                  <span className="whitespace-nowrap text-muted">
+                    {u.short ?? u.text}
+                  </span>
+                  {u.isNew && (
+                    <span className="rounded bg-red-500/15 px-1 py-px text-[8px] font-bold uppercase leading-none text-red-500">
+                      New
+                    </span>
+                  )}
+                </UpdateLink>
+              ))
+            )}
+          </div>
         </div>
-        <div className="px-4 pb-1.5">
-          {UPDATES.slice(0, 2).map((u) => (
-            <UpdateLink
-              key={u.id}
-              update={u}
-              className="group flex items-center gap-2 py-1"
-            >
-              <span className="h-1 w-1 shrink-0 rounded-full bg-brand-2" />
-              <span className="min-w-0 flex-1 truncate text-[11px] text-muted group-hover:text-fg">
-                {u.short ?? u.text}
-              </span>
-              {u.isNew && (
-                <span className="shrink-0 bg-brand-2 px-1 text-[8px] font-bold uppercase leading-4 text-white">
-                  New
-                </span>
-              )}
-            </UpdateLink>
-          ))}
-        </div>
+
+        {/* Link to the full announcements page */}
+        <Link
+          to="/updates"
+          className="shrink-0 font-mono text-[9px] uppercase tracking-wider text-brand hover:underline"
+        >
+          All →
+        </Link>
       </div>
 
       <Hero />

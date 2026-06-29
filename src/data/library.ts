@@ -76,11 +76,3 @@ export const REAL_TYPES: MatType[] = [
   "Detailed PYQ Solutions",
   "Syllabus",
 ];
-
-// Categories that aren't live yet (clicking shows a "coming soon" note).
-export const SOON_TYPES = [
-  "Current Affairs",
-  "Daily Quiz",
-  "Strategy",
-  "Updates",
-];

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Zap, ArrowRight, ExternalLink } from "lucide-react";
+import { Zap, ExternalLink } from "lucide-react";
 import { UPDATES } from "../data/updates";
 
 export default function Updates() {
