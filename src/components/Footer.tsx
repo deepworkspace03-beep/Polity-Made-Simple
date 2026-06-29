@@ -1,5 +1,5 @@
 import { Send, MessageCircle, Users } from "lucide-react";
-import Logo from "./Logo";
+import JrfLogo from "./JrfLogo";
 import { SITE, COMMUNITY } from "../config";
 
 const BRAND_VAR: Record<"telegram" | "whatsapp", string> = {
@@ -23,13 +23,15 @@ export default function Footer() {
 
           {/* Brand — left */}
           <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <Logo size={24} />
+            <div className="flex items-center gap-2.5">
+              <JrfLogo size={30} className="shrink-0" />
               <span className="whitespace-nowrap text-sm font-extrabold">
                 <span className="text-gradient">Polity</span> Made Simple
               </span>
             </div>
-            <p className="mt-1 text-[11px] text-muted">{SITE.tagline}</p>
+            <p className="mt-1 text-[11px] text-muted">
+              A <span className="font-semibold text-gradient">JRF Club</span> Initiative
+            </p>
           </div>
 
           {/* Community — right */}

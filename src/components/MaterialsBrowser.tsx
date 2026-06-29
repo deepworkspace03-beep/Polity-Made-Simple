@@ -1,11 +1,6 @@
-import { Link } from "react-router-dom";
-import { FileText, ExternalLink } from "lucide-react";
-import {
-  library,
-  REAL_TYPES,
-  SOON_TYPES,
-  type LibraryItem,
-} from "../data/library";
+import { useEffect, useState, type ReactNode } from "react";
+import { FileText, ExternalLink, SlidersHorizontal } from "lucide-react";
+import { library, REAL_TYPES, type LibraryItem } from "../data/library";
 
 type Props = {
   types: string[];
@@ -25,9 +20,20 @@ function PaperBadge({ paper }: { paper: LibraryItem["paper"] }) {
       ? "bg-brand/10 text-brand"
       : "bg-brand-2/10 text-brand-2";
   return (
-    <span className={`px-1.5 py-0.5 text-[10px] font-semibold ${tone}`}>
+    <span className={`px-1.5 py-0.5 text-[11px] font-semibold ${tone}`}>
       {paper}
     </span>
+  );
+}
+
+function FilterRow({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+      <span className="w-[4.5rem] shrink-0 font-mono text-[11px] font-bold uppercase tracking-widest text-muted/70 sm:text-xs">
+        {label}
+      </span>
+      <div className="flex flex-wrap gap-2">{children}</div>
+    </div>
   );
 }
 
@@ -38,8 +44,10 @@ export default function MaterialsBrowser({
   setTypes,
   setPapers,
   setLangs,
-  onComingSoon,
 }: Props) {
+  // Filters stay hidden until the user enters via a Quick Access tile.
+  const [revealed, setRevealed] = useState(false);
+
   const toggle = (arr: string[], val: string, setter: (v: string[]) => void) =>
     setter(arr.includes(val) ? arr.filter((x) => x !== val) : [...arr, val]);
 
@@ -50,6 +58,10 @@ export default function MaterialsBrowser({
   };
 
   const hasFilter = types.length + papers.length + langs.length > 0;
+
+  useEffect(() => {
+    if (hasFilter) setRevealed(true);
+  }, [hasFilter]);
 
   const base = hasFilter
     ? library
@@ -69,123 +81,90 @@ export default function MaterialsBrowser({
         a.name.localeCompare(b.name)
     );
 
-  const typeChip = (active: boolean) =>
-    "border px-1.5 py-px text-[10px] sm:px-2.5 sm:py-1 sm:text-xs font-medium transition-all active:scale-95 " +
-    (active
-      ? "pill-active"
-      : "border-edge bg-bg text-muted hover:border-brand/40 hover:text-fg");
-
-  const filterChip = (active: boolean) =>
-    "border px-1.5 py-px text-[10px] sm:px-2.5 sm:py-1 sm:text-xs font-medium transition-all active:scale-95 " +
+  const chip = (active: boolean) =>
+    "border px-2.5 py-1 text-xs sm:text-sm font-medium transition-all active:scale-95 " +
     (active
       ? "pill-active"
       : "border-edge bg-bg text-muted hover:border-brand/40 hover:text-fg");
 
   return (
     <section id="materials" className="border-t border-edge bg-band">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-12">
 
-        {/* ── Section header ── */}
-        <p className="eyebrow">Study Material</p>
-        <h2 className="mt-1 text-xl font-extrabold tracking-tight sm:text-2xl">
-          Find What You Need
-        </h2>
-        <p className="mt-1 text-xs text-muted sm:text-sm">
-          Browse notes, PYQs &amp; more — pick a category, then filter by paper or language.
-        </p>
+        {revealed ? (
+          <>
+            {/* ── Compact filters (Category · Paper · Language) ── */}
+            <div className="flex items-center justify-between">
+              <p className="inline-flex items-center gap-2 eyebrow">
+                <SlidersHorizontal size={13} className="text-brand" />
+                Filter Materials
+              </p>
+              {hasFilter && (
+                <button
+                  onClick={clearAll}
+                  className="text-xs font-semibold text-brand transition-colors hover:underline sm:text-sm"
+                >
+                  Clear all
+                </button>
+              )}
+            </div>
 
-        {/* ── Box 1: Categories — all chips in one flex-wrap row ── */}
-        <div className="mt-4 border border-edge bg-card p-3 sm:mt-6 sm:p-5">
-          <p className="mb-2 font-mono text-[10px] font-bold uppercase tracking-widest text-muted/60">
-            Category
-          </p>
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">
-            {REAL_TYPES.map((t) => (
-              <button
-                key={t}
-                onClick={() => toggle(types, t, setTypes)}
-                className={typeChip(types.includes(t))}
-              >
-                {t}
-              </button>
-            ))}
-            {/* Coming soon chips inline — dashed border distinguishes them */}
-            {SOON_TYPES.map((t) => (
-              <button
-                key={t}
-                onClick={() => onComingSoon(`${t} — coming soon. Stay tuned!`)}
-                className="border border-dashed border-edge bg-transparent px-1.5 py-px text-[10px] font-medium text-muted/50 transition-colors hover:text-muted sm:px-2.5 sm:py-1 sm:text-xs"
-              >
-                {t}
-                <span className="ml-1 font-mono text-[8px] uppercase tracking-wider opacity-60">
-                  soon
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
+            <div className="mt-4 space-y-3 border border-edge bg-card p-4 sm:p-5">
+              <FilterRow label="Category">
+                {REAL_TYPES.map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => toggle(types, t, setTypes)}
+                    className={chip(types.includes(t))}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </FilterRow>
 
-        {/* ── Box 2: Refine filters — always one line ── */}
-        <div className="mt-px border border-t-0 border-edge bg-card p-3 sm:p-5">
-          <div className="flex flex-row flex-wrap items-center gap-x-3 gap-y-2 sm:gap-6">
+              <span className="block h-px bg-edge" />
 
-            {/* Paper filter */}
-            <div className="flex items-center gap-1.5 sm:gap-3">
-              <span className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-widest text-muted/60">
-                Paper
-              </span>
-              <div className="flex gap-1.5 sm:gap-2">
+              <FilterRow label="Paper">
                 {(["Paper 1", "Paper 2"] as const).map((p) => (
                   <button
                     key={p}
                     onClick={() => toggle(papers, p, setPapers)}
-                    className={filterChip(papers.includes(p))}
+                    className={chip(papers.includes(p))}
                   >
                     {p}
                   </button>
                 ))}
-              </div>
-            </div>
+              </FilterRow>
 
-            {/* Divider */}
-            <span className="h-4 w-px shrink-0 bg-edge" />
-
-            {/* Language filter */}
-            <div className="flex items-center gap-1.5 sm:gap-3">
-              <span className="shrink-0 font-mono text-[10px] font-bold uppercase tracking-widest text-muted/60">
-                Lang
-              </span>
-              <div className="flex gap-1.5 sm:gap-2">
+              <FilterRow label="Language">
                 {(["English", "Hindi"] as const).map((l) => (
                   <button
                     key={l}
                     onClick={() => toggle(langs, l, setLangs)}
-                    className={filterChip(langs.includes(l))}
+                    className={chip(langs.includes(l))}
                   >
                     {l}
                   </button>
                 ))}
-              </div>
+              </FilterRow>
             </div>
 
-            {/* Clear all */}
-            {hasFilter && (
-              <button
-                onClick={clearAll}
-                className="ml-auto text-xs font-semibold text-brand transition-colors hover:underline"
-              >
-                Clear all
-              </button>
-            )}
+            <p className="mb-3 mt-5 text-sm font-medium text-muted">
+              {results.length}{" "}
+              {results.length === 1 ? "material" : "materials"} found
+            </p>
+          </>
+        ) : (
+          /* ── Default: Latest & Essentials ── */
+          <div className="mb-4">
+            <p className="eyebrow">Latest &amp; Essentials</p>
+            <p className="mt-1 text-sm text-muted sm:text-base">
+              Fresh uploads &amp; must-have resources — use{" "}
+              <span className="font-semibold text-brand">Quick Access</span> above
+              to filter everything.
+            </p>
           </div>
-        </div>
-
-        {/* ── Result count ── */}
-        <p className="mb-3 mt-6 text-xs font-medium text-muted">
-          {hasFilter
-            ? `${results.length} ${results.length === 1 ? "material" : "materials"} found`
-            : "Latest & essentials"}
-        </p>
+        )}
 
         {/* ── Results ── */}
         {results.length === 0 ? (
@@ -200,19 +179,19 @@ export default function MaterialsBrowser({
                 href={item.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="card-interactive group flex items-center gap-3 p-3"
+                className="card-interactive group flex items-center gap-3 p-3.5"
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-brand/10 text-brand">
-                  <FileText size={16} />
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-brand/10 text-brand">
+                  <FileText size={17} />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-medium">
+                  <span className="block truncate text-sm font-semibold sm:text-[15px]">
                     {item.name}
                   </span>
                   <span className="mt-1 flex items-center gap-2">
                     <PaperBadge paper={item.paper} />
-                    <span className="text-[11px] text-muted">{item.language}</span>
-                    <span className="truncate text-[11px] text-muted">
+                    <span className="text-xs text-muted">{item.language}</span>
+                    <span className="truncate text-xs text-muted">
                       · {item.unit}
                     </span>
                   </span>
@@ -223,26 +202,13 @@ export default function MaterialsBrowser({
                   </span>
                 )}
                 <ExternalLink
-                  size={15}
+                  size={16}
                   className="shrink-0 text-muted transition-colors group-hover:text-brand"
                 />
               </a>
             ))}
           </div>
         )}
-
-        {/* ── Full library hint ── */}
-        <p className="mt-6 text-center text-xs text-muted">
-          Looking for everything? Browse the full library on the{" "}
-          <Link to="/paper-1" className="font-medium text-brand hover:underline">
-            Paper 1
-          </Link>{" "}
-          and{" "}
-          <Link to="/paper-2" className="font-medium text-brand hover:underline">
-            Paper 2
-          </Link>{" "}
-          pages.
-        </p>
       </div>
     </section>
   );

@@ -6,9 +6,11 @@ import {
   BookOpen,
   Landmark,
   Zap,
+  ClipboardList,
 } from "lucide-react";
 import { SITE } from "../config";
 import { UPDATES } from "../data/updates";
+import UpdateLink from "./UpdateLink";
 
 const PAPER_1_TOPICS = ["Teaching Aptitude", "Research Methodology", "ICT & Reasoning"];
 const PAPER_2_TOPICS = ["Political Theory", "Indian Government", "International Relations"];
@@ -34,10 +36,10 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto max-w-6xl">
-        <div className="flex min-h-[calc(100svh-68px)] flex-col lg:flex-row">
+        <div className="flex min-h-[calc(100svh-128px)] flex-col lg:min-h-[calc(100svh-68px)] lg:flex-row">
 
           {/* ── Main hero content ── */}
-          <div className="flex flex-1 flex-col items-center justify-center px-4 py-14 text-center sm:px-10">
+          <div className="flex flex-1 flex-col items-center justify-start px-4 py-6 text-center sm:px-10 sm:py-12 lg:justify-center lg:py-14">
 
             {/* Eyebrow */}
             <span className="anim-hero eyebrow inline-flex items-center gap-2">
@@ -46,20 +48,20 @@ export default function Hero() {
             </span>
 
             {/* Heading */}
-            <h1 className="anim-hero anim-d1 mt-4 text-[2.6rem] font-extrabold leading-[1.1] tracking-tight sm:text-6xl lg:text-[4.5rem]">
+            <h1 className="anim-hero anim-d1 mt-3 text-[2.4rem] font-extrabold leading-[1.08] tracking-tight sm:mt-4 sm:text-6xl lg:text-[4.5rem]">
               Political Science{" "}
               <span className="text-gradient">Made Simple</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="anim-hero anim-d2 mx-auto mt-4 max-w-lg text-sm text-muted sm:text-base">
+            <p className="anim-hero anim-d2 mx-auto mt-2.5 max-w-lg text-[13px] text-muted sm:mt-4 sm:text-base">
               Notes, PYQs, mock tests, current affairs and exam strategy —{" "}
               <br className="hidden sm:block" />
               everything you need, in one clean place.
             </p>
 
-            {/* Exam badge — fades in then floats */}
-            <div className="anim-hero anim-d3 mt-8 flex justify-center">
+            {/* Exam badge + Hindi availability pill */}
+            <div className="anim-hero anim-d3 mt-4 flex flex-col items-center gap-2 sm:mt-7">
               <div className="anim-float inline-flex items-center gap-3 border border-edge bg-card px-5 py-3 shadow-md">
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center gradient-brand text-white">
                   <GraduationCap size={16} />
@@ -68,10 +70,17 @@ export default function Hero() {
                   {SITE.examLabel}
                 </span>
               </div>
+
+              {/* Hindi availability — accent pill, Hindi highlighted */}
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-2/35 bg-brand-2/10 px-3 py-1 text-[13px] font-semibold text-fg shadow-sm sm:text-sm">
+                <Languages size={14} className="text-brand-2" />
+                Also available in{" "}
+                <span className="font-bold text-brand-2">हिंदी</span>
+              </span>
             </div>
 
             {/* Paper cards — always 2 columns, full card is a link */}
-            <div className="anim-hero anim-d4 mx-auto mt-8 grid w-full max-w-lg grid-cols-2 gap-3 sm:gap-4">
+            <div className="anim-hero anim-d4 mx-auto mt-5 grid w-full max-w-lg grid-cols-2 gap-3 sm:mt-8 sm:gap-4">
 
               {/* Paper 1 — whole card navigates */}
               <Link
@@ -136,14 +145,18 @@ export default function Hero() {
               </Link>
             </div>
 
-            {/* Language note */}
-            <p className="anim-hero anim-d5 mt-5 inline-flex items-center justify-center gap-1.5 text-xs font-medium text-fg/60 sm:text-sm">
-              <Languages size={13} />
-              Available in both English + हिंदी
-            </p>
+            {/* Mock tests — slim full-width call to action */}
+            <Link
+              to="/mock-tests"
+              className="anim-hero anim-d5 group mx-auto mt-3 flex w-full max-w-lg items-center justify-center gap-2 gradient-brand px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-transform active:scale-[0.98] sm:mt-4"
+            >
+              <ClipboardList size={15} />
+              Mock Test Series 2026
+              <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            </Link>
 
             {/* Upcoming chips — always 2-column grid, responsive sizing */}
-            <div className="anim-hero anim-d6 mx-auto mt-7 grid w-full max-w-lg grid-cols-2 gap-2 sm:gap-3">
+            <div className="anim-hero anim-d6 mx-auto mt-4 grid w-full max-w-lg grid-cols-2 gap-2 sm:mt-7 sm:gap-3">
               <div className="hero-chip hero-chip-cuet flex min-w-0 items-center gap-1.5 border border-edge bg-card px-2.5 py-2.5 sm:gap-2.5 sm:px-4 sm:py-3">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-brand-2/15 text-brand-2 sm:h-7 sm:w-7">
                   <BookOpen size={12} />
@@ -194,19 +207,24 @@ export default function Hero() {
                 {/* Divider */}
                 <span className="mt-3 block h-px bg-edge" />
 
-                {/* Clickable update items */}
+                {/* Latest 2 updates — short titles, each directly clickable */}
                 <div className="mt-3 space-y-3">
-                  {UPDATES.map((update) => (
-                    <Link
+                  {UPDATES.slice(0, 2).map((update) => (
+                    <UpdateLink
                       key={update.id}
-                      to={update.href ?? "/updates"}
-                      className="group flex gap-2.5"
+                      update={update}
+                      className="group flex items-center gap-2.5"
                     >
-                      <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brand-2" />
-                      <p className="text-xs leading-relaxed text-muted transition-colors group-hover:text-fg">
-                        {update.text}
-                      </p>
-                    </Link>
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-2" />
+                      <span className="min-w-0 flex-1 truncate text-xs text-muted transition-colors group-hover:text-fg">
+                        {update.short ?? update.text}
+                      </span>
+                      {update.isNew && (
+                        <span className="shrink-0 bg-brand-2 px-1 py-px text-[8px] font-bold uppercase text-white">
+                          New
+                        </span>
+                      )}
+                    </UpdateLink>
                   ))}
                 </div>
               </div>
