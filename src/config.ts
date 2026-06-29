@@ -11,8 +11,9 @@ export const SITE = {
   examLabel: "UGC NET JRF · December 2026", // highlighted hero tag
 
   // Footer identity (kept separate from the header brand on purpose).
-  footerName: "The JRF Club Initiative", // bold footer title
+  footerInitiative: "A JRF Club Initiative", // colourful footer brand line
   footerTagline: "Study Smarter. Learn Faster.", // line under the footer title
+  copyrightName: "Political Science Made Simple", // owner shown in the © line
 
   // Your real links:
   telegram: "https://t.me/politicalsciencenetjrfclub",

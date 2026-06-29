@@ -19,7 +19,7 @@ export default function QuickAccess({
     "card-interactive group flex items-center gap-3 p-4 text-left shadow-sm";
 
   return (
-    <section className="border-b border-edge bg-bg">
+    <section className="surface-a border-b border-edge">
       <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-12">
 
         {/* Heading */}

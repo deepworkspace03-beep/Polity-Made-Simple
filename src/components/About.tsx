@@ -1,63 +1,68 @@
 import { Mail } from "lucide-react";
 import { SITE } from "../config";
 import Reveal from "./Reveal";
-import profile from "../assets/profile.jpg";
+import profile from "../assets/profile.webp";
 
 /**
- * About Us — clean, compact and trustworthy. Photo on the left (stacks on
- * top on mobile), name and bio on the right.
- *
- * To use a different photo, just replace `src/assets/profile.jpg`.
+ * About Author — a compact author byline. A small photo (blended into the
+ * background with a soft brand halo) is paired with the name and role, and
+ * a short bio spans below to keep the section low and tidy. To change the
+ * photo, just replace `src/assets/profile.webp`.
  */
 export default function About() {
   return (
-    <section id="about" className="border-t border-edge bg-bg">
+    <section id="about" className="surface-a border-t border-edge">
       <Reveal>
-        <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
+        <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-10">
 
-          <p className="eyebrow text-center">About Us</p>
+          <p className="eyebrow text-center">About Author</p>
 
-          <div className="mt-6 grid gap-6 sm:grid-cols-[auto,1fr] sm:items-center sm:gap-8">
+          <div className="mt-5 sm:mt-6">
 
-            {/* ── Photo ── */}
-            <div className="mx-auto w-32 shrink-0 sm:mx-0 sm:w-40">
-              <div className="overflow-hidden rounded-2xl border border-edge bg-card shadow-md">
+            {/* ── Identity row: blended photo + name + role ── */}
+            <div className="flex items-center gap-3.5 sm:gap-4">
+              <div className="relative shrink-0">
+                <span
+                  aria-hidden="true"
+                  className="absolute -inset-1.5 rounded-full bg-gradient-to-br from-brand/25 to-brand-2/25 blur-md"
+                />
                 <img
                   src={profile}
-                  alt="Deepak — founder & mentor"
+                  alt="Deepak — Founder & Educator"
                   loading="lazy"
-                  width={320}
-                  height={320}
-                  className="aspect-square w-full object-cover"
+                  decoding="async"
+                  width={240}
+                  height={240}
+                  className="relative h-16 w-16 rounded-full object-cover shadow-md ring-1 ring-edge sm:h-[72px] sm:w-[72px]"
                 />
+              </div>
+              <div className="min-w-0">
+                <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+                  <span className="text-gradient">Deepak</span>
+                </h2>
+                <p className="mt-0.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-muted">
+                  <span className="h-1 w-1 rounded-full bg-brand-2" />
+                  Founder &amp; Educator
+                </p>
               </div>
             </div>
 
-            {/* ── Name + bio + contact ── */}
-            <div className="text-center sm:text-left">
-              <p className="text-sm font-medium text-muted">Built &amp; mentored by</p>
-              <h2 className="mt-0.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
-                <span className="text-gradient">Deepak</span>
-              </h2>
+            {/* ── Short bio ── */}
+            <p className="mt-3.5 text-[13px] leading-relaxed text-muted sm:text-sm">
+              UGC-NET/JRF in Political Science (99.826&nbsp;%ile, 2025), with GATE
+              (Economics) &amp; UGC-NET (Geography). Sharing quality notes, mock
+              tests, PYQ analysis &amp; exam strategy — to make JRF prep simpler
+              and smarter.
+            </p>
 
-              <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted sm:mx-0 sm:text-[15px]">
-                Qualified UGC-NET/JRF in Political Science (99.826 percentile,
-                June 2025), along with GATE in Economics and UGC-NET in
-                Geography. With firsthand exam experience, dedicated to providing
-                quality notes, mock tests, PYQ analysis, and practical
-                preparation strategies — to crack JRF and make preparation
-                simpler, smarter, and effective.
-              </p>
-
-              <a
-                href={`mailto:${SITE.email}`}
-                className="mt-4 inline-flex items-center gap-2 border border-edge bg-card px-3.5 py-2 text-sm transition-all hover:border-brand/40 hover:shadow-sm"
-              >
-                <Mail size={14} className="shrink-0 text-brand" />
-                <span className="hidden text-muted sm:inline">Questions or feedback?</span>
-                <span className="font-semibold text-fg">{SITE.email}</span>
-              </a>
-            </div>
+            {/* ── Contact ── */}
+            <a
+              href={`mailto:${SITE.email}`}
+              className="mt-3 inline-flex items-center gap-2 border border-edge bg-card px-3 py-1.5 text-[13px] transition-all hover:border-brand/40 hover:shadow-sm"
+            >
+              <Mail size={14} className="shrink-0 text-brand" />
+              <span className="font-semibold text-fg">{SITE.email}</span>
+            </a>
           </div>
         </div>
       </Reveal>

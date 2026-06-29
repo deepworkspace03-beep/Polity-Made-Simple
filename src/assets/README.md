@@ -1,11 +1,14 @@
 # assets/
 
-Images that are bundled by Vite (imported from components).
+Images bundled by Vite (imported from components).
 
-## Profile photo (About Us)
+## Profile photo (About Author)
 
-The About section uses `profile.jpg` from this folder.
+The About section uses `profile.webp` (small, optimised for fast loading).
+To change it, replace `src/assets/profile.webp` with a square image — no
+code change is needed (`src/components/About.tsx` imports it).
 
-To change it, just replace `src/assets/profile.jpg` with your new photo
-(a square JPG/PNG works best — it is shown in a rounded square). No code
-change is needed — `src/components/About.tsx` already imports it.
+## Footer logo
+
+`footer-logo.webp` — the JRF Club emblem with transparent corners, shown in
+`src/components/Footer.tsx`. Replace the file to swap the logo.

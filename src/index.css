@@ -23,13 +23,19 @@
   --green:  22  120 92;    /* Paper 2 / Download (deep green)         */
   --tg:     41  122 175;   /* Telegram                                */
   --wa:     31  158 86;    /* WhatsApp green                          */
+
+  /* Surface finish — soft sheen + elevation (premium, never flat white) */
+  --sheen:           255 255 255;     /* top highlight on cards         */
+  --sheen-op:        0.55;
+  --shadow-card:       0 1px 2px rgb(20 40 80 / 0.04), 0 6px 16px rgb(20 40 80 / 0.05);
+  --shadow-card-hover: 0 8px 26px rgb(20 40 80 / 0.10);
 }
 
 .dark {
   --bg:     11  15  19;    /* #0B0F13 near-black  */
-  --band:   14  19  25;    /* subtle elevated band */
-  --card:   17  22  28;    /* card surface         */
-  --edge:   30  39  49;    /* hairline borders     */
+  --band:   16  21  28;    /* subtle elevated band */
+  --card:   20  26  33;    /* card surface         */
+  --edge:   46  58  72;    /* hairline borders — clearly visible, not bright */
   --fg:     234 238 243;   /* near-white text      */
   --muted:  140 150 165;   /* secondary text       */
   --brand:  92  139 235;   /* accent blue          */
@@ -39,6 +45,12 @@
   --green:  34  150 110;
   --tg:     56  145 200;
   --wa:     37  175 96;
+
+  /* Dark surfaces: faint top sheen + deeper shadow for clear elevation */
+  --sheen:           255 255 255;
+  --sheen-op:        0.035;
+  --shadow-card:       0 1px 2px rgb(0 0 0 / 0.35), 0 6px 18px rgb(0 0 0 / 0.32);
+  --shadow-card-hover: 0 10px 30px rgb(0 0 0 / 0.45);
 }
 
 @layer base {
@@ -47,6 +59,11 @@
   }
   body {
     @apply bg-bg text-fg antialiased;
+    /* Very soft blue→teal wash so bare pages never read as flat white. */
+    background-image:
+      radial-gradient(50rem 32rem at 8% -8%, rgb(var(--brand) / 0.06), transparent 60%),
+      radial-gradient(46rem 30rem at 100% 4%, rgb(var(--brand-2) / 0.05), transparent 58%);
+    background-attachment: fixed;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   :focus-visible {
@@ -101,9 +118,34 @@
     @apply inline-flex items-center justify-center gap-2 border border-edge bg-card px-4 py-2.5 text-sm font-semibold text-fg transition-transform hover:bg-fg/5 active:scale-[0.97];
   }
 
-  /* Cards — sharp rectangle. */
-  .card             { @apply border border-edge bg-card; }
-  .card-interactive { @apply border border-edge bg-card transition-all hover:-translate-y-1 hover:border-brand/40 active:scale-[0.99]; }
+  /* Soft, premium section surfaces — subtle blue/teal tint (never flat
+     white in light, clearer elevation in dark). -a sits on the base
+     background, -b on the alternating band. */
+  .surface-a {
+    background-color: rgb(var(--bg));
+    background-image:
+      radial-gradient(42rem 22rem at 50% -12%, rgb(var(--brand) / 0.06), transparent 60%),
+      linear-gradient(180deg, transparent 58%, rgb(var(--brand-2) / 0.05));
+  }
+  .surface-b {
+    background-color: rgb(var(--band));
+    background-image:
+      radial-gradient(40rem 22rem at 100% 0%, rgb(var(--brand-2) / 0.07), transparent 56%),
+      radial-gradient(38rem 20rem at 0% 100%, rgb(var(--brand) / 0.05), transparent 56%);
+  }
+
+  /* Cards — sharp rectangle with a faint top sheen + soft elevation. */
+  .card,
+  .card-interactive {
+    @apply border border-edge;
+    background-color: rgb(var(--card));
+    background-image: linear-gradient(180deg, rgb(var(--sheen) / var(--sheen-op)), transparent 62%);
+    box-shadow: var(--shadow-card);
+  }
+  .card-interactive {
+    @apply transition-all hover:-translate-y-1 hover:border-brand/40 active:scale-[0.99];
+  }
+  .card-interactive:hover { box-shadow: var(--shadow-card-hover); }
 
   /* Active filter pill. */
   .pill-active {
