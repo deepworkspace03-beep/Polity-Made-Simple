@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { FileText, ExternalLink, SlidersHorizontal } from "lucide-react";
-import { library, REAL_TYPES, type LibraryItem } from "../data/library";
+import { library, REAL_TYPES } from "../data/library";
+import PaperBadge from "./PaperBadge";
 
 type Props = {
   types: string[];
@@ -9,7 +10,6 @@ type Props = {
   setTypes: (v: string[]) => void;
   setPapers: (v: string[]) => void;
   setLangs: (v: string[]) => void;
-  onComingSoon: (message: string) => void;
 };
 
 const PAPER_ORDER: Record<string, number> = { "Paper 1": 0, "Paper 2": 1 };
@@ -22,24 +22,10 @@ const FEATURED = {
     "https://drive.google.com/file/d/1XqhoJPCnLYjSwIhqplGfoLzYyC_-qaES/view?usp=drivesdk",
 };
 
-function PaperBadge({ paper }: { paper: LibraryItem["paper"] }) {
-  const tone =
-    paper === "Paper 1"
-      ? "bg-brand/10 text-brand"
-      : "bg-brand-2/10 text-brand-2";
-  return (
-    <span
-      className={`shrink-0 whitespace-nowrap rounded px-1.5 py-0.5 text-[11px] font-semibold ${tone}`}
-    >
-      {paper}
-    </span>
-  );
-}
-
 function FilterRow({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-      <span className="w-[4.5rem] shrink-0 font-mono text-[11px] font-bold uppercase tracking-widest text-muted/70 sm:text-xs">
+      <span className="w-[4.5rem] shrink-0 font-mono text-[11px] font-semibold uppercase tracking-widest text-muted/70 sm:text-xs">
         {label}
       </span>
       <div className="flex flex-wrap gap-2">{children}</div>
@@ -93,7 +79,7 @@ export default function MaterialsBrowser({
     );
 
   const chip = (active: boolean) =>
-    "border px-2.5 py-1 text-xs sm:text-sm font-medium transition-all active:scale-95 " +
+    "rounded-full border px-3 py-1 text-xs sm:text-sm font-medium transition-all active:scale-95 " +
     (active
       ? "pill-active"
       : "border-edge bg-bg text-muted hover:border-brand/40 hover:text-fg");
@@ -120,7 +106,7 @@ export default function MaterialsBrowser({
               )}
             </div>
 
-            <div className="mt-4 space-y-3 border border-edge bg-card p-4 sm:p-5">
+            <div className="card mt-4 space-y-3 p-4 sm:p-5">
               <FilterRow label="Category">
                 {REAL_TYPES.map((t) => (
                   <button
@@ -187,7 +173,7 @@ export default function MaterialsBrowser({
             rel="noopener noreferrer"
             className="card-interactive card-tint group mb-2 flex items-center gap-3 p-3.5"
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-brand/10 text-brand">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
               <FileText size={17} />
             </span>
             <span className="min-w-0 flex-1 text-sm font-semibold leading-snug sm:text-[15px]">
@@ -218,7 +204,7 @@ export default function MaterialsBrowser({
                 rel="noopener noreferrer"
                 className="card-interactive card-tint group flex items-center gap-3 p-3.5"
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-brand/10 text-brand">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
                   <FileText size={17} />
                 </span>
                 <span className="min-w-0 flex-1">
@@ -234,7 +220,7 @@ export default function MaterialsBrowser({
                   </span>
                 </span>
                 {item.isNew && (
-                  <span className="shrink-0 bg-brand-2 px-1.5 py-0.5 text-[10px] font-bold text-white">
+                  <span className="shrink-0 rounded bg-brand-2 px-1.5 py-0.5 text-[10px] font-bold text-white">
                     New
                   </span>
                 )}
