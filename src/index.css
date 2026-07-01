@@ -10,14 +10,15 @@
   ───────────────────────────────────────────────────────────────
 */
 :root {
-  --bg:     201 212 227;   /* deepened slate blue-gray — calmer, less white */
-  --band:   190 203 219;   /* deeper tinted alternating band          */
-  --card:   228 238 246;   /* off-white with clear blue tint          */
-  --edge:   182 198 214;   /* visible, clean hairline borders         */
-  --fg:     14  19  25;    /* near-black text                         */
-  --muted:  88  99  112;   /* secondary text                          */
-  --brand:  40  86  196;   /* accent blue                             */
-  --brand-2:18  160 120;   /* accent teal                             */
+  color-scheme: light;     /* native form controls/scrollbars match theme */
+  --bg:     202 214 229;   /* deepened slate blue-gray — calmer, less white */
+  --band:   190 203 220;   /* deeper tinted alternating band          */
+  --card:   231 240 248;   /* off-white with clear blue tint          */
+  --edge:   175 192 211;   /* visible, clean hairline borders         */
+  --fg:     15  23  32;    /* near-black text                         */
+  --muted:  84  96  110;   /* secondary text                          */
+  --brand:  37  84  199;   /* accent blue                             */
+  --brand-2:16  156 118;   /* accent teal                             */
 
   --blue:   40  78  158;   /* Paper 1 / Open  (deep blue)             */
   --green:  22  120 92;    /* Paper 2 / Download (deep green)         */
@@ -27,11 +28,14 @@
   /* Surface finish — soft sheen + elevation (premium, never flat white) */
   --sheen:           255 255 255;     /* top highlight on cards         */
   --sheen-op:        0.55;
-  --shadow-card:       0 1px 2px rgb(20 40 80 / 0.04), 0 6px 16px rgb(20 40 80 / 0.05);
-  --shadow-card-hover: 0 8px 26px rgb(20 40 80 / 0.10);
+  --shadow-card:       inset 0 1px 0 rgb(255 255 255 / 0.55),
+                       0 1px 2px rgb(23 43 84 / 0.05), 0 8px 20px rgb(23 43 84 / 0.07);
+  --shadow-card-hover: inset 0 1px 0 rgb(255 255 255 / 0.55),
+                       0 12px 32px rgb(30 64 150 / 0.14);
 }
 
 .dark {
+  color-scheme: dark;
   --bg:     11  15  19;    /* #0B0F13 near-black  */
   --band:   16  21  28;    /* subtle elevated band */
   --card:   20  26  33;    /* card surface         */
@@ -49,8 +53,10 @@
   /* Dark surfaces: faint top sheen + deeper shadow for clear elevation */
   --sheen:           255 255 255;
   --sheen-op:        0.035;
-  --shadow-card:       0 1px 2px rgb(0 0 0 / 0.35), 0 6px 18px rgb(0 0 0 / 0.32);
-  --shadow-card-hover: 0 10px 30px rgb(0 0 0 / 0.45);
+  --shadow-card:       inset 0 1px 0 rgb(255 255 255 / 0.04),
+                       0 1px 2px rgb(0 0 0 / 0.35), 0 6px 18px rgb(0 0 0 / 0.32);
+  --shadow-card-hover: inset 0 1px 0 rgb(255 255 255 / 0.04),
+                       0 10px 30px rgb(0 0 0 / 0.45);
 }
 
 @layer base {
@@ -82,16 +88,18 @@
     /* Light mode: a rich, multi-hue aurora (blue · teal-green · violet ·
        cyan). A full-viewport diagonal wash tints even the centre so plain
        areas are gently dimmed and premium — never flat white — while corner
-       pools add depth. Low opacities keep dark text perfectly crisp. */
+       pools add depth. A soft "skylight" at the top centre lifts the hero.
+       Low opacities keep dark text perfectly crisp. */
     background:
-      radial-gradient(50rem 40rem at -5% -8%, rgb(20 168 138 / 0.20), transparent 55%),
-      radial-gradient(48rem 38rem at 105% 0%, rgb(46 104 224 / 0.16), transparent 55%),
-      radial-gradient(48rem 42rem at 104% 106%, rgb(22 170 140 / 0.18), transparent 55%),
-      radial-gradient(46rem 40rem at -5% 110%, rgb(124 112 230 / 0.13), transparent 55%),
+      radial-gradient(52rem 30rem at 50% -10%, rgb(255 255 255 / 0.30), transparent 60%),
+      radial-gradient(50rem 40rem at -5% -8%, rgb(20 168 138 / 0.22), transparent 55%),
+      radial-gradient(48rem 38rem at 105% 0%, rgb(46 104 224 / 0.20), transparent 55%),
+      radial-gradient(48rem 42rem at 104% 106%, rgb(22 170 140 / 0.20), transparent 55%),
+      radial-gradient(46rem 40rem at -5% 110%, rgb(124 112 230 / 0.14), transparent 55%),
       linear-gradient(135deg,
         rgb(20 162 132 / 0.10) 0%,
-        rgb(46 104 224 / 0.06) 52%,
-        rgb(124 112 230 / 0.08) 100%);
+        rgb(46 104 224 / 0.07) 52%,
+        rgb(124 112 230 / 0.09) 100%);
   }
   body::after {
     z-index: -1;
@@ -125,17 +133,35 @@
     color: transparent;
   }
 
-  /* Hero section: gradient + subtle dot grid (softer in light mode). */
+  /* Hero section: layered gradient + subtle dot grid (softer in light mode).
+     Light mode adds a top "soft light" wash so the hero reads as the
+     brightest, most dimensional part of the page. */
   .section-hero {
     background-image:
       radial-gradient(rgb(var(--edge) / 0.22) 1.5px, transparent 1.5px),
+      radial-gradient(60rem 26rem at 50% -8%, rgb(var(--sheen) / 0.35), transparent 62%),
       linear-gradient(170deg, rgb(var(--band)) 0%, rgb(var(--bg)) 100%);
-    background-size: 30px 30px, 100% 100%;
+    background-size: 30px 30px, 100% 100%, 100% 100%;
   }
   .dark .section-hero {
     background-image:
       radial-gradient(rgb(var(--edge)) 1.5px, transparent 1.5px),
       linear-gradient(170deg, rgb(var(--band)) 0%, rgb(var(--bg)) 100%);
+    background-size: 30px 30px, 100% 100%;
+  }
+
+  /* Gradient hairline — replaces a plain border with a brand-tinted glow
+     line so section transitions feel designed, not just divided. */
+  .edge-glow { position: relative; }
+  .edge-glow::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent, rgb(var(--brand) / 0.55) 30%, rgb(var(--brand-2) / 0.55) 70%, transparent);
   }
 
   /* Uppercase mono micro-label above section titles. */
@@ -148,21 +174,20 @@
   .btn-green,
   .btn-tg,
   .btn-wa {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white transition-transform active:scale-[0.97];
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-white shadow-sm active:scale-[0.97];
+    transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
   }
   .btn-blue:hover,
   .btn-green:hover,
   .btn-tg:hover,
   .btn-wa:hover {
     filter: brightness(1.08);
+    transform: translateY(-1px);
   }
   .btn-blue   { background-color: rgb(var(--blue)); }
   .btn-green  { background-color: rgb(var(--green)); }
   .btn-tg     { background-color: rgb(var(--tg)); }
   .btn-wa     { background-color: rgb(var(--wa)); }
-  .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 border border-edge bg-card px-4 py-2.5 text-sm font-semibold text-fg transition-transform hover:bg-fg/5 active:scale-[0.97];
-  }
 
   /* Section surfaces — mostly transparent so the page-wide ambient mesh
      (see body::before/::after) flows through every section for a cohesive
@@ -170,21 +195,21 @@
      a subtly tinted band so adjacent sections still separate softly. */
   .surface-a {
     background-image:
-      radial-gradient(46rem 22rem at 50% -6%, rgb(var(--brand) / 0.06), transparent 62%),
-      linear-gradient(180deg, rgb(var(--card) / 0.30), transparent 28%);
+      radial-gradient(46rem 22rem at 50% -6%, rgb(var(--brand) / 0.07), transparent 62%),
+      linear-gradient(180deg, rgb(var(--card) / 0.32), transparent 28%);
   }
   .surface-b {
     background-color: rgb(var(--band) / 0.5);
     background-image:
-      radial-gradient(46rem 26rem at 100% -8%, rgb(var(--brand-2) / 0.09), transparent 60%),
-      radial-gradient(40rem 24rem at 0% 112%, rgb(var(--brand) / 0.06), transparent 60%),
-      linear-gradient(180deg, rgb(var(--card) / 0.30), transparent 30%);
+      radial-gradient(46rem 26rem at 100% -8%, rgb(var(--brand-2) / 0.10), transparent 60%),
+      radial-gradient(40rem 24rem at 0% 112%, rgb(var(--brand) / 0.07), transparent 60%),
+      linear-gradient(180deg, rgb(var(--card) / 0.32), transparent 30%);
   }
 
-  /* Cards — sharp rectangle with a faint top sheen + soft elevation. */
+  /* Cards — soft corners, faint top sheen + tinted elevation. */
   .card,
   .card-interactive {
-    @apply border border-edge;
+    @apply rounded-xl border border-edge;
     background-color: rgb(var(--card));
     background-image: linear-gradient(180deg, rgb(var(--sheen) / var(--sheen-op)), transparent 62%);
     box-shadow: var(--shadow-card);
@@ -203,9 +228,48 @@
       linear-gradient(135deg, rgb(var(--brand-2) / 0.08) 0%, transparent 46%, rgb(var(--brand) / 0.07) 100%);
   }
 
+  /* Premium hero panel — frosted surface framed by a blue→teal gradient
+     hairline (border drawn with background-clip, so no extra elements).
+     Used for the exam card and the desktop updates panel. */
+  .hero-panel {
+    border: 1px solid transparent;
+    background-image:
+      linear-gradient(180deg, rgb(var(--sheen) / calc(var(--sheen-op) * 0.55)), transparent 46%),
+      linear-gradient(rgb(var(--card) / 0.82), rgb(var(--card) / 0.82)),
+      linear-gradient(140deg,
+        rgb(var(--brand) / 0.55), rgb(var(--edge)) 32%, rgb(var(--edge)) 68%, rgb(var(--brand-2) / 0.55));
+    background-origin: border-box;
+    background-clip: padding-box, padding-box, border-box;
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  /* Floating badge — small gradient pill that overlaps a card's top edge.
+     A soft brand-tinted glow + hairline light border keep it elegant on
+     both themes; the ::after layer sweeps a gentle shine across it. */
+  .badge-float {
+    @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-[9px] font-bold tracking-wide text-white sm:px-3.5 sm:text-[11px];
+    background-image: linear-gradient(135deg, rgb(var(--brand)), rgb(var(--brand-2)));
+    border: 1px solid rgb(255 255 255 / 0.3);
+    box-shadow:
+      0 2px 6px rgb(var(--brand) / 0.3),
+      0 8px 22px rgb(var(--brand) / 0.28);
+    position: relative;
+    overflow: hidden;
+  }
+  .badge-float::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 32%, rgb(255 255 255 / 0.35) 50%, transparent 68%);
+    transform: translateX(-100%);
+    animation: badgeShine 6s ease-in-out infinite;
+  }
+
   /* Active filter pill. */
   .pill-active {
-    @apply border-transparent text-white;
+    @apply border-transparent text-white shadow-sm;
     background-color: rgb(var(--blue));
   }
 }
@@ -213,10 +277,6 @@
 /* ── Reveal (scroll fade-in) ── */
 .reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.5s ease; }
 .reveal-visible { opacity: 1; transform: none; }
-
-/* ── Sidebar slide ── */
-.sidebar-enter         { transform: translateX(100%); }
-.sidebar-enter-active  { transform: translateX(0); transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); }
 
 /* ── Marquee ticker ── */
 @keyframes marquee {
@@ -254,16 +314,16 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Continuous gentle float (exam badge) */
-@keyframes heroFloat {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-8px); }
-}
-
 /* Slow opacity pulse (glow blobs) */
 @keyframes glowPulse {
   0%, 100% { opacity: 0.75; }
   50%       { opacity: 1; }
+}
+
+/* Shine sweep across the floating badge */
+@keyframes badgeShine {
+  0%, 55%   { transform: translateX(-100%); }
+  75%, 100% { transform: translateX(100%); }
 }
 
 /* Base entrance class */
@@ -276,19 +336,17 @@
 .anim-d2 { animation-delay: 150ms; }
 .anim-d3 { animation-delay: 260ms; }
 .anim-d4 { animation-delay: 380ms; }
-.anim-d5 { animation-delay: 500ms; }
-.anim-d6 { animation-delay: 620ms; }
 
 /* Continuous utilities */
-.anim-float { animation: heroFloat 4.2s ease-in-out infinite; }
 .anim-glow  { animation: glowPulse 6s   ease-in-out infinite; }
 .anim-glow-slow { animation: glowPulse 9s ease-in-out infinite 1.5s; }
 
 /* Honour the OS reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
   .reveal, .anim-hero { opacity: 1; transform: none; transition: none; animation: none; }
-  .anim-float, .anim-glow, .anim-glow-slow { animation: none; }
+  .anim-glow, .anim-glow-slow { animation: none; }
   .animate-marquee, .anim-pop { animation: none; }
+  .badge-float::after { animation: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -340,7 +398,6 @@
   box-shadow: 0 8px 20px rgb(var(--brand-2) / 0.25);
   border-color: rgb(var(--brand-2) / 0.55);
 }
-.hero-chip-cuet:active { transform: scale(0.97); }
 
 /* Rajasthan SET — amber accent */
 .hero-chip-rset:hover {
@@ -348,4 +405,3 @@
   box-shadow: 0 8px 20px rgb(245 158 11 / 0.25);
   border-color: rgb(245 158 11 / 0.55);
 }
-.hero-chip-rset:active { transform: scale(0.97); }

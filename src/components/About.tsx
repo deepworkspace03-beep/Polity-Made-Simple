@@ -21,7 +21,7 @@ export default function About() {
           </h2>
 
           {/* Author card */}
-          <div className="mt-5 rounded-2xl border border-edge bg-card/70 p-5 shadow-[var(--shadow-card)] backdrop-blur-sm transition-shadow hover:shadow-[var(--shadow-card-hover)] sm:mt-6 sm:p-6">
+          <div className="hero-panel mt-5 rounded-2xl p-5 transition-shadow hover:shadow-[var(--shadow-card-hover)] sm:mt-6 sm:p-6">
 
             {/* Identity row: blended photo + name + roles */}
             <div className="flex items-center gap-3.5 sm:gap-4">

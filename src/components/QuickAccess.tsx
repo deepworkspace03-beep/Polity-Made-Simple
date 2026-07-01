@@ -28,6 +28,9 @@ export default function QuickAccess({
           <Sparkles size={22} className="text-brand" />
           Quick Access
         </h2>
+        <p className="mt-2 text-center text-sm text-muted">
+          Jump straight to the material you need.
+        </p>
 
         {/* Tiles */}
         <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:grid-cols-3">
@@ -35,7 +38,7 @@ export default function QuickAccess({
             const Icon = item.icon;
             const inner = (
               <>
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center bg-brand/10 text-brand transition-colors group-hover:gradient-brand group-hover:text-white">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand transition-colors group-hover:gradient-brand group-hover:text-white">
                   <Icon size={19} />
                 </span>
                 <span className="min-w-0 flex-1">

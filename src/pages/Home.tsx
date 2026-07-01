@@ -41,7 +41,7 @@ export default function Home() {
           clickable; pauses on touch/hover and respects reduced-motion. */}
       <div className="sticky top-16 z-30 flex items-center gap-2 border-b border-edge bg-brand/[0.07] py-1.5 pl-3 pr-2 backdrop-blur-sm lg:hidden">
         {/* Fixed accent label — distinguishes the bar from the top header */}
-        <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brand px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-wider text-white">
+        <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-brand px-2 py-1 font-mono text-[9px] font-semibold uppercase tracking-wider text-white">
           <Zap size={9} fill="currentColor" />
           Updates
         </span>
@@ -94,7 +94,6 @@ export default function Home() {
         setTypes={setTypes}
         setPapers={setPapers}
         setLangs={setLangs}
-        onComingSoon={setToast}
       />
       <About />
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}

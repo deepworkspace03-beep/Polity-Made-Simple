@@ -61,7 +61,7 @@ export default function Footer() {
                     className="flex flex-col items-center gap-1"
                   >
                     <span
-                      className="flex h-9 w-9 items-center justify-center border border-edge bg-card transition-all hover:border-brand/40 hover:shadow-sm active:scale-95"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-edge bg-card transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-sm active:scale-95"
                       style={{ color: `rgb(var(${BRAND_VAR[c.brand]}))` }}
                     >
                       <Icon size={16} />

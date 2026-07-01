@@ -1,21 +1,8 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft, ExternalLink, BookOpen } from "lucide-react";
-import { mockPapers, type MockTest } from "../data/mockTests";
+import { ExternalLink, BookOpen } from "lucide-react";
+import { mockPapers } from "../data/mockTests";
+import PageHeader from "../components/PageHeader";
+import PaperBadge from "../components/PaperBadge";
 import Reveal from "../components/Reveal";
-
-// Small coloured badge for the paper a test belongs to.
-function PaperBadge({ paper }: { paper: MockTest["paper"] }) {
-  const styles = {
-    "Paper 1": "bg-brand/10 text-brand",
-    "Paper 2": "bg-brand-2/10 text-brand-2",
-    Full: "gradient-brand text-white",
-  };
-  return (
-    <span className={`rounded-md px-2 py-0.5 text-[11px] font-semibold ${styles[paper]}`}>
-      {paper}
-    </span>
-  );
-}
 
 /**
  * Mock Tests page. Data comes from src/data/mockTests.ts.
@@ -25,24 +12,11 @@ function PaperBadge({ paper }: { paper: MockTest["paper"] }) {
 export default function MockTests() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-      <Link
-        to="/"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-brand"
-      >
-        <ArrowLeft size={16} />
-        Back to home
-      </Link>
-
-      <div className="mt-4 mb-6">
-        <p className="eyebrow">Mock Tests</p>
-        <h1 className="mt-1 text-3xl font-extrabold tracking-tight">
-          Mock Test Series
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          Paper-wise & unit-wise mock tests for UGC-NET/JRF · Free, no registration.
-          English & Hindi, with detailed solutions.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Mock Tests"
+        title="Mock Test Series"
+        subtitle="Paper-wise & unit-wise mock tests for UGC-NET/JRF · Free, no registration. English & Hindi, with detailed solutions."
+      />
 
       <Reveal>
         <div className="flex flex-col gap-8">
@@ -71,7 +45,7 @@ export default function MockTests() {
                           href={test.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group flex items-center justify-between gap-2 rounded-lg border border-edge bg-bg px-3 py-2.5 transition-all hover:-translate-y-0.5 hover:border-brand/40"
+                          className="group flex items-center justify-between gap-2 rounded-lg border border-edge bg-bg px-3 py-2.5 transition-all hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[var(--shadow-card)]"
                         >
                           <span className="min-w-0">
                             <span className="flex items-center gap-2">

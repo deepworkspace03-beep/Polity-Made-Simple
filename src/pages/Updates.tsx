@@ -1,30 +1,15 @@
-import { Link } from "react-router-dom";
-import { Zap, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { UPDATES } from "../data/updates";
+import PageHeader from "../components/PageHeader";
 
 export default function Updates() {
   return (
-    <section className="mx-auto max-w-2xl px-4 py-14 sm:px-6">
-
-      {/* Header */}
-
-      <div className="mt-6 text-center">
-        <Link to="/" className="text-sm font-medium text-brand hover:underline">
-          ← Back to Home
-        </Link>
-      </div>
-      <div className="flex items-center gap-2">
-        <span className="flex h-6 w-6 shrink-0 items-center justify-center gradient-brand text-white">
-          <Zap size={12} fill="currentColor" />
-        </span>
-        <p className="eyebrow text-[11px]">Announcements</p>
-      </div>
-      <h1 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl">
-        Latest Updates
-      </h1>
-      <p className="mt-2 text-sm text-muted">
-        New content, exam news, and site announcements — all in one place.
-      </p>
+    <section className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+      <PageHeader
+        eyebrow="Announcements"
+        title="Latest Updates"
+        subtitle="New content, exam news, and site announcements — all in one place."
+      />
 
       {/* Update list */}
       <div className="mt-8 space-y-2">
@@ -76,7 +61,6 @@ export default function Updates() {
           );
         })}
       </div>
-
     </section>
   );
 }
